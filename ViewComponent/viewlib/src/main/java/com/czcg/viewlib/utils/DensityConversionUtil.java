@@ -18,6 +18,7 @@ public class DensityConversionUtil {
     }
     /**
      * px转成pd
+     * @return int pd
      */
     public static int pxTopPd(Context context, int px) {
         float density = context.getResources().getDisplayMetrics().density;
