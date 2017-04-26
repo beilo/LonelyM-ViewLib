@@ -19,7 +19,7 @@ ToastWidget.getInstance().createToast(context, "给我提示", ToastWidget.STATU
 
 ##### 等候框
 ``` java
-DialogWidget.getInstance().createLoadingDialog(context, true).show();
+DialogWidget.getInstance().createLoadingDialog(context, true);
 ```
 
 ##### 底部选择器
