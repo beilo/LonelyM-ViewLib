@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="viewlib-0.0.1">
+    <CLASSES>
+      <root url="jar://C:/Android/.android/build-cache/bf4d52e8afad9269c7d666be779c7b5f7b2b7771/output/jars/classes.jar!/" />
+      <root url="file://C:/Android/.android/build-cache/bf4d52e8afad9269c7d666be779c7b5f7b2b7771/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://E:/My Data/AndroidSetting/.gradle/caches/modules-2/files-2.1/com.lonely-mushroom/viewlib/0.0.1/1ca4ace8ab96897fff4cbd2470f74a9a5bfca2d5/viewlib-0.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
