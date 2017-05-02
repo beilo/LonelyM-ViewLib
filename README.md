@@ -2,7 +2,7 @@
 
 
 
-###### gradle
+##### gradle
 ``` gradle
 compile 'com.lonely-mushroom:viewlib:0.0.1'
 ```
