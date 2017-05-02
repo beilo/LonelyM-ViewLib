@@ -1,10 +1,13 @@
 # LonelyM-ViewLib
+##### 更新说明
 
-
+```
+0.0.2 - 修复DialogUpdate在些手机上有title空白
+```
 
 ##### gradle
 ``` gradle
-compile 'com.lonely-mushroom:viewlib:0.0.1'
+compile 'com.lonely-mushroom:viewlib:0.0.2'
 ```
 
 ##### 更新js弹窗
