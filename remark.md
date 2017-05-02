@@ -1,9 +1,8 @@
 ##### 更新说明
-修复DialogUpdate在某些手机上有title空白
-
-
-
-###### gradle
+```
+0.0.2 - 修复DialogUpdate在某些手机上有title空白
+```
+#### gradle
 ``` gradle
 compile 'com.lonely-mushroom:viewlib:0.0.2'
 ```
