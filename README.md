@@ -8,6 +8,13 @@
 ##### gradle
 ``` gradle
 compile 'com.lonely-mushroom:viewlib:0.0.2'
+
+allprojects {  
+    repositories {  
+        jcenter()  
+        maven { url "https://jitpack.io" }  
+    }  
+} 
 ```
 
 ##### 更新js弹窗
