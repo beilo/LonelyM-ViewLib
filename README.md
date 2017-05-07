@@ -8,7 +8,10 @@
 ##### gradle
 ``` gradle
 compile 'com.lonely-mushroom:viewlib:0.0.2'
+```
 
+##### maven
+```
 allprojects {  
     repositories {  
         jcenter()  
