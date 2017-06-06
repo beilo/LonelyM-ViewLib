@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 alertBean.setTitle("测试");
                 alertBean.setMessage("message");
                 alertBean.setIsJudgment(true);
+                alertBean.setConfirm("我是确定");
+                alertBean.setCancel("我是取消");
                 AlertWidget.getInstance().createFragment(context, alertBean, new AlertWidget.AlertManagerListener() {
                     @Override
                     public void listener(boolean flag) {

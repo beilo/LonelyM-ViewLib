@@ -15,15 +15,19 @@ public class AlertBean implements Serializable{
 
     private String title = "";
     private String message = "";
+    private String confirm = "";
+    private String cancel = "";
     private boolean isJudgment = false;
 
 
     public AlertBean() {
     }
 
-    public AlertBean(String title, String message, boolean isJudgment) {
+    public AlertBean(String title, String message, String confirm, String cancel, boolean isJudgment) {
         this.title = title;
         this.message = message;
+        this.confirm = confirm;
+        this.cancel = cancel;
         this.isJudgment = isJudgment;
     }
 
@@ -51,5 +55,27 @@ public class AlertBean implements Serializable{
         this.isJudgment = isJudgment;
     }
 
+    public String getConfirm() {
+        return confirm;
+    }
 
+    public void setConfirm(String confirm) {
+        this.confirm = confirm;
+    }
+
+    public String getCancel() {
+        return cancel;
+    }
+
+    public void setCancel(String cancel) {
+        this.cancel = cancel;
+    }
+
+    public boolean isJudgment() {
+        return isJudgment;
+    }
+
+    public void setJudgment(boolean judgment) {
+        isJudgment = judgment;
+    }
 }
