@@ -2,12 +2,13 @@
 ##### 更新说明
 
 ```
+0.0.3 - 新增可自定义alert弹窗确定,取消文字.confirm||cancel
 0.0.2 - 修复DialogUpdate在些手机上有title空白
 ```
 
 ##### gradle
 ``` gradle
-compile 'com.lonely-mushroom:viewlib:0.0.2'
+compile 'com.lonely-mushroom:viewlib:0.0.3'
 ```
 
 ##### maven

@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="appcompat-v7-25.3.1">
     <CLASSES>
-      <root url="file://C:/Android/.android/build-cache/f1e5963dbc3e481bbaf48423db13d3bcdebd83ef/output/res" />
-      <root url="jar://C:/Android/.android/build-cache/f1e5963dbc3e481bbaf48423db13d3bcdebd83ef/output/jars/classes.jar!/" />
+      <root url="jar://C:/Android/.android/build-cache/d936554c7529562af1067e062dcf9adef1fd760a/output/jars/classes.jar!/" />
+      <root url="file://C:/Android/.android/build-cache/d936554c7529562af1067e062dcf9adef1fd760a/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://E:/SDK/sdk/extras/android/m2repository/com/android/support/appcompat-v7/25.3.1/appcompat-v7-25.3.1-sources.jar!/" />
+      <root url="jar://E:/SDK/Sdk/extras/android/m2repository/com/android/support/appcompat-v7/25.3.1/appcompat-v7-25.3.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
