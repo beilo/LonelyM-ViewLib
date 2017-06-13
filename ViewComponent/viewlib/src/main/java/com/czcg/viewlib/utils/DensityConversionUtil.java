@@ -16,10 +16,7 @@ public class DensityConversionUtil {
         int px = (int) (dp * density + 0.5f);     //进行四舍五入
         return px;
     }
-    /**
-     * px转成pd
-     * @return int pd
-     */
+
     public static int pxTopPd(Context context, int px) {
         float density = context.getResources().getDisplayMetrics().density;
 

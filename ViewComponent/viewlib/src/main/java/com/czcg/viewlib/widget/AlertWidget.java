@@ -14,12 +14,16 @@ import com.czcg.viewlib.beans.AlertBean;
  */
 public class AlertWidget {
     private static AlertWidget widget = new AlertWidget();
+
     private AlertWidget() {
     }
-    public static AlertWidget getInstance(){
+
+    public static AlertWidget getInstance() {
         return widget;
     }
+
     public AlertManagerListener alertManagerListener;
+
     public void createFragment(Context context, AlertBean alertBean, AlertManagerListener listener) {
         alertManagerListener = listener;
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogCustom))
@@ -28,15 +32,24 @@ public class AlertWidget {
                 // .setView(inflate)
                 // http://www.cnblogs.com/howlaa/p/4126536.html 使alertDialog.builder不会点击外面和按返回键消失
                 .setCancelable(false);
+        String confirmTitle = "确定";
+        if (alertBean.getConfirm() != null && !"".equals(alertBean.getConfirm())) {
+            confirmTitle = alertBean.getConfirm();
+        }
+        String cancelTitle = "取消";
+        if(alertBean.getCancel() != null && !"".equals(alertBean.getCancel())){
+            cancelTitle = alertBean.getCancel();
+        }
+        alertBean.getCancel();
         if (alertBean.isIsJudgment()) {
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(cancelTitle, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     callback(false);
                 }
             });
         }
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(confirmTitle, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 callback(true);

@@ -27,5 +27,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile project(path: ':viewlib')
-//    compile 'com.lonely-mushroom:viewlib:0.0.1'
+//    compile 'com.lonely-mushroom:viewlib:0.0.2'
 }
