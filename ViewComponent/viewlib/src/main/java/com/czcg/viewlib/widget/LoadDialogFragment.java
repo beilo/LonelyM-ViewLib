@@ -41,24 +41,21 @@ public class LoadDialogFragment extends DialogFragment {
         View inflate = inflater.inflate(R.layout.view_load, container, false);
         loadingView = (LoadingView) inflate.findViewById(R.id.loadView);
         loadingView.setIndicatorColor(ResourcesCompat.getColor(_mActivity.getResources(), R.color.orange, null));
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return inflate;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        // //对话框背景色 原有边框会自动消失
-        getDialog().getWindow().setDimAmount(0);//背景黑暗度
+    public void onStart() {
+        super.onStart();
 
-        setCancelable(false);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         getDialog().getWindow().setLayout(DensityConversionUtil.dpToPx(_mActivity, 180),
                 DensityConversionUtil.dpToPx(_mActivity, 120));
+        getDialog().getWindow().setBackgroundDrawable(ResourcesCompat.getDrawable(_mActivity.getResources()
+                ,R.drawable.shape_load_view,null));
+        // //对话框背景色 原有边框会自动消失
+        getDialog().getWindow().setDimAmount(0);//背景黑暗度
+        setCancelable(false);
     }
 
     public void dismissDialog() {

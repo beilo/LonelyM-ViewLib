@@ -4,6 +4,7 @@
     android:layout_width="280dp"
     android:layout_height="90dp"
     android:gravity="center"
+    android:padding="5dp"
     android:orientation="vertical">
 
     <com.czcg.viewlib.ui.LoadingView
