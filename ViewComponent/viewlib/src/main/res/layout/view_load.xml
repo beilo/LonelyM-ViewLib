@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="90dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.czcg.viewlib.ui.LoadingView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/loadView"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        style="@style/AVLoadingIndicatorView.Large"/>
+</LinearLayout>
+

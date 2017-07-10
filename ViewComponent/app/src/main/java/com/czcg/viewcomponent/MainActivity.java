@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_main);
+
+
+        DialogWidget.getInstance().show(this);
     }
 
     @Override
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ToastWidget.getInstance().createToast(context, "给我提示", ToastWidget.STATUS_SUCCESS).show();
                 break;
             case R.id.bt_3:
-                DialogWidget.getInstance().createLoadingDialog(context, true).show();
+                DialogWidget.getInstance().show(this);
                 break;
             case R.id.bt_4:
                 SheetBean bean = new SheetBean();

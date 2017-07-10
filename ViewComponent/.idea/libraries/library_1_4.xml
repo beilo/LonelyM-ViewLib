@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="library-1.4">
     <CLASSES>
-      <root url="jar://C:/Android/.android/build-cache/a39ee5667b1457961ec3571d1cf0485b888f9fc7/output/jars/classes.jar!/" />
-      <root url="file://C:/Android/.android/build-cache/a39ee5667b1457961ec3571d1cf0485b888f9fc7/output/res" />
+      <root url="file://C:/Android/.android/build-cache/6ade1f0a6980c00bd149a3777e3a87cfe8966842/output/res" />
+      <root url="jar://C:/Android/.android/build-cache/6ade1f0a6980c00bd149a3777e3a87cfe8966842/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://E:/My Data/AndroidSetting/.gradle/caches/modules-2/files-2.1/com.daimajia.numberprogressbar/library/1.4/fcc2dd900e02a61ee357ada5e620bd9f9344a064/library-1.4-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.daimajia.numberprogressbar/library/1.4/fcc2dd900e02a61ee357ada5e620bd9f9344a064/library-1.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

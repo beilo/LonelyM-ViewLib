@@ -1,16 +1,9 @@
 package com.czcg.viewlib.widget;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.czcg.viewlib.R;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
 
 /**
@@ -18,63 +11,25 @@ import com.czcg.viewlib.R;
  */
 public class DialogWidget {
     private static DialogWidget widget = new DialogWidget();
+
     private DialogWidget() {
     }
-    public static DialogWidget getInstance(){
+
+    public static DialogWidget getInstance() {
         return widget;
     }
 
-    private Dialog loadingDialog;
-    public Dialog createLoadingDialog(Context context,boolean isCancel) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.new_dialog_load, null);// 得到加载view
-        LinearLayout layout = (LinearLayout) v.findViewById(R.id.dialog_view);// 加载布局
-        // main.xml中的ImageView
-        ImageView spaceshipImage = (ImageView) v.findViewById(R.id.img);
-        TextView tipTextView = (TextView) v.findViewById(R.id.tipTextView);// 提示文字
-        // 加载动画
-        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
-                context, R.anim.loading_animation);
-        // 使用ImageView显示动画
-        spaceshipImage.startAnimation(hyperspaceJumpAnimation);
-        //tipTextView.setText(msg);// 设置加载信息
+    public void show(Context context) {
 
-        loadingDialog = new Dialog(context, R.style.loading_dialog);// 创建自定义样式dialog
-        loadingDialog.setCancelable(isCancel);// 不可以用“返回键”取消
-        loadingDialog.setCanceledOnTouchOutside(isCancel);//false 不可取消
-        loadingDialog.show();
-        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));// 设置布局
-
-        return loadingDialog;
-
+        if (context instanceof FragmentActivity){
+            FragmentActivity activity = (FragmentActivity) context;
+            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+            Fragment prev = activity.getSupportFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+            LoadDialogFragment.newInstance().show(ft, "dialog");
+        }
     }
-
-    public Dialog createLoadingDialog(Context context, String msg) {
-
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.new_dialog_load, null);// 得到加载view
-        LinearLayout layout = (LinearLayout) v.findViewById(R.id.dialog_view);// 加载布局
-        // main.xml中的ImageView
-        ImageView spaceshipImage = (ImageView) v.findViewById(R.id.img);
-        TextView tipTextView = (TextView) v.findViewById(R.id.tipTextView);// 提示文字
-        // 加载动画
-        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
-                context, R.anim.loading_animation);
-        // 使用ImageView显示动画
-        spaceshipImage.startAnimation(hyperspaceJumpAnimation);
-        tipTextView.setText(msg);// 设置加载信息
-
-        loadingDialog = new Dialog(context, R.style.loading_dialog);// 创建自定义样式dialog
-        loadingDialog.setCancelable(false);// 不可以用“返回键”取消
-        loadingDialog.show();
-        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));// 设置布局
-
-        return loadingDialog;
-
-    }
-
 }
