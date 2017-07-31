@@ -48,7 +48,7 @@ public class LoadDialogFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        // 这里设置大小,布局大小没有效果
         getDialog().getWindow().setLayout(DensityConversionUtil.dpToPx(_mActivity, 180),
                 DensityConversionUtil.dpToPx(_mActivity, 120));
         getDialog().getWindow().setBackgroundDrawable(ResourcesCompat.getDrawable(_mActivity.getResources()

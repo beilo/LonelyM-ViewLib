@@ -1,7 +1,7 @@
 package com.czcg.viewlib.widget;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 
 import com.czcg.viewlib.beans.SheetBean;
 import com.czcg.viewlib.fragments.ShootingDialogFragment;
@@ -21,7 +21,7 @@ public class SheetViewWidget {
         return widget;
     }
 
-    public void createFragment(AppCompatActivity activity, SheetBean sheetBean, SheetViewListener listener) {
+    public void createFragment(FragmentActivity activity, SheetBean sheetBean, SheetViewListener listener) {
         sheetListener = listener;
         ShootingDialogFragment dialogFragment = (ShootingDialogFragment) ShootingDialogFragment.newInstance(sheetBean);
         FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
