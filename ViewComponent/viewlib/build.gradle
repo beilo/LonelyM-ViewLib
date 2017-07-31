@@ -42,7 +42,7 @@ publish {
     userOrg = 'lonely-mushroom'
     groupId = 'com.lonely-mushroom'
     artifactId = 'viewlib'
-    publishVersion = '0.0.2'
+    publishVersion = '0.0.4'
     desc = 'view lib'
     website = 'https://github.com/LonelyMushroom/LonelyM-ViewLib'
 }
