@@ -1,80 +1,48 @@
 package com.czcg.viewlib.widget;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.czcg.viewlib.R;
+import com.czcg.viewlib.utils.BaseNiceDialog;
+import com.czcg.viewlib.utils.ViewConvertListener;
+import com.czcg.viewlib.utils.ViewHolder;
 
 
 /**
- * Created by lee on 2015/12/14.
+ * 等候框
+ *
+ * @author leipeng
  */
-public class DialogWidget {
-    private static DialogWidget widget = new DialogWidget();
-    private DialogWidget() {
-    }
-    public static DialogWidget getInstance(){
-        return widget;
-    }
+public class DialogWidget extends BaseNiceDialog {
 
-    private Dialog loadingDialog;
-    public Dialog createLoadingDialog(Context context,boolean isCancel) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.new_dialog_load, null);// 得到加载view
-        LinearLayout layout = (LinearLayout) v.findViewById(R.id.dialog_view);// 加载布局
-        // main.xml中的ImageView
-        ImageView spaceshipImage = (ImageView) v.findViewById(R.id.img);
-        TextView tipTextView = (TextView) v.findViewById(R.id.tipTextView);// 提示文字
-        // 加载动画
-        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
-                context, R.anim.loading_animation);
-        // 使用ImageView显示动画
-        spaceshipImage.startAnimation(hyperspaceJumpAnimation);
-        //tipTextView.setText(msg);// 设置加载信息
 
-        loadingDialog = new Dialog(context, R.style.loading_dialog);// 创建自定义样式dialog
-        loadingDialog.setCancelable(isCancel);// 不可以用“返回键”取消
-        loadingDialog.setCanceledOnTouchOutside(isCancel);//false 不可取消
-        loadingDialog.show();
-        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));// 设置布局
-
-        return loadingDialog;
-
+    public static DialogWidget init() {
+        return new DialogWidget();
     }
 
-    public Dialog createLoadingDialog(Context context, String msg) {
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.new_dialog_load, null);// 得到加载view
-        LinearLayout layout = (LinearLayout) v.findViewById(R.id.dialog_view);// 加载布局
-        // main.xml中的ImageView
-        ImageView spaceshipImage = (ImageView) v.findViewById(R.id.img);
-        TextView tipTextView = (TextView) v.findViewById(R.id.tipTextView);// 提示文字
-        // 加载动画
-        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
-                context, R.anim.loading_animation);
-        // 使用ImageView显示动画
-        spaceshipImage.startAnimation(hyperspaceJumpAnimation);
-        tipTextView.setText(msg);// 设置加载信息
-
-        loadingDialog = new Dialog(context, R.style.loading_dialog);// 创建自定义样式dialog
-        loadingDialog.setCancelable(false);// 不可以用“返回键”取消
-        loadingDialog.show();
-        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));// 设置布局
-
-        return loadingDialog;
-
+    @Override
+    public int intLayoutId() {
+        return R.layout.new_dialog_load;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setConvertListener(new ViewConvertListener() {
+            @Override
+            public void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                ImageView imageView = holder.getView(R.id.img);
+                // 加载动画
+                Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
+                        _mActivity, R.anim.loading_animation);
+                // 使用ImageView显示动画
+                imageView.startAnimation(hyperspaceJumpAnimation);
+            }
+        });
+    }
 }

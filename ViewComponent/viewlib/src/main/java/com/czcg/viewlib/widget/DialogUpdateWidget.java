@@ -1,48 +1,54 @@
 package com.czcg.viewlib.widget;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.view.LayoutInflater;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.Window;
-import android.widget.RelativeLayout;
 
 import com.czcg.viewlib.R;
-import com.czcg.viewlib.utils.DensityConversionUtil;
+import com.czcg.viewlib.utils.BaseNiceDialog;
 import com.daimajia.numberprogressbar.NumberProgressBar;
 
 /**
- * Created by 被咯苏州 on 2017/3/29.
+ * @author 被咯苏州
+ * @date 2017/10/30
  */
 
-public class DialogUpdateWidget {
+public class DialogUpdateWidget extends BaseNiceDialog {
 
-    private static DialogUpdateWidget dialogUpdateWidget = new DialogUpdateWidget();
-    private DialogUpdateWidget() {
-    }
-    public static DialogUpdateWidget getInstance(){
-        return dialogUpdateWidget;
+    public static DialogUpdateWidget init() {
+        return new DialogUpdateWidget();
     }
 
-    private Dialog dialog;
-    NumberProgressBar progressBar;
+    private NumberProgressBar mProgressBar;
+    private int mInitProgress = 0;
 
-    public Dialog createDialog(Context context,boolean isCancel) {
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_update, null);// 得到加载view
-        progressBar = (NumberProgressBar) view.findViewById(R.id.progress_bar);
-        dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);  //http://blog.csdn.net/u011747761/article/details/47419419
-        dialog.setCancelable(isCancel);
-        dialog.setCanceledOnTouchOutside(isCancel);
-        dialog.show();
-        dialog.addContentView(view, new RelativeLayout.LayoutParams(
-                DensityConversionUtil.dpToPx(context, 250),
-                DensityConversionUtil.dpToPx(context, 100)));
-        return dialog;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mProgressBar = (NumberProgressBar) view.findViewById(R.id.progress_bar);
+        mProgressBar.setProgress(mInitProgress);
     }
 
 
-    public void setProgress(int position) {
-        progressBar.setProgress(position);
+    /**
+     * 设置进度条的数值
+     * 如果需要在show的时候立马调用,则需要用new Handler().post(setProgress(?)),或者调用initProgress(?)方法
+     *
+     * @param progress 1~100
+     */
+    public void setProgress(int progress) {
+        if (mProgressBar != null) {
+            mProgressBar.setProgress(progress);
+        }
+    }
+
+    @Override
+    public int intLayoutId() {
+        return R.layout.dialog_update;
+    }
+
+    public DialogUpdateWidget setmInitProgress(int mInitProgress) {
+        this.mInitProgress = mInitProgress;
+        return this;
     }
 }

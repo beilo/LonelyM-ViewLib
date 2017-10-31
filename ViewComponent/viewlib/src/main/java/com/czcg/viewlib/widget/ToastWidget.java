@@ -6,17 +6,23 @@ import android.widget.Toast;
 import es.dmoral.toasty.Toasty;
 
 /**
- * Created by lee on 2016/4/27
+ * @author 被咯苏州
  */
 public class ToastWidget {
     public static final String STATUS_SUCCESS = "success";
     public static final String STATUS_WARM = "warm";
     public static final String STATUS_ERROR = "error";
 
-    private static ToastWidget widget = new ToastWidget();
-    private ToastWidget() {
-    }
-    public static ToastWidget getInstance(){
+    private static volatile ToastWidget widget;
+
+    public static ToastWidget init(){
+        if (widget == null){
+            synchronized (ToastWidget.class){
+                if (widget == null){
+                    widget = new ToastWidget();
+                }
+            }
+        }
         return widget;
     }
 

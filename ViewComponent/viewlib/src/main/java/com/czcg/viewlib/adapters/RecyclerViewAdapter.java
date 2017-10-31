@@ -46,8 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ((MainActivity)context).alertSheet(btnsEntity.getTitle());
-                SheetViewWidget.getInstance().getTitle(btnsEntity.getTitle());
+                SheetViewWidget.init().getTitle(btnsEntity.getTitle());
                 itemClickListener.dismiss();
             }
         });

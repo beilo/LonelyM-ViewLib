@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tool="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:background="@drawable/shape_alert_bg"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_margin="8dp"
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        tool:text="我是标题"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:gravity="center"
+        />
+
+
+    <TextView
+        android:layout_margin="6dp"
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="64dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tool:text="我是内容"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            tool:text="取消"
+            android:background="@drawable/layer_alert_left"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_success"
+            android:layout_width="0dp"
+            android:background="@drawable/layer_alert_right"
+            tool:text="确认"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

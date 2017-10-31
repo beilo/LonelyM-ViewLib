@@ -21,7 +21,9 @@ import com.czcg.viewlib.beans.SheetBean;
 
 
 /**
- * Created by Administrator on 2015/10/23.
+ *
+ * @author Administrator
+ * @date 2015/10/23
  */
 public class ShootingDialogFragment extends DialogFragment {
 

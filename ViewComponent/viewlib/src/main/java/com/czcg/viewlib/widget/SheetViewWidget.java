@@ -8,17 +8,23 @@ import com.czcg.viewlib.fragments.ShootingDialogFragment;
 
 
 /**
- * Created by Administrator on 2016/4/20.
+ * @author 被咯苏州
+ * @date 2016/4/20
  */
 public class SheetViewWidget {
 
-    public static SheetViewListener sheetListener;
+    private static volatile SheetViewWidget sheetViewWidget;
+    private SheetViewListener sheetListener;
 
-    private static SheetViewWidget widget = new SheetViewWidget();
-    private SheetViewWidget() {
-    }
-    public static SheetViewWidget getInstance(){
-        return widget;
+    public static SheetViewWidget init() {
+        if (sheetViewWidget == null) {
+            synchronized (SheetViewListener.class) {
+                if (sheetViewWidget == null) {
+                    sheetViewWidget = new SheetViewWidget();
+                }
+            }
+        }
+        return sheetViewWidget;
     }
 
     public void createFragment(FragmentActivity activity, SheetBean sheetBean, SheetViewListener listener) {

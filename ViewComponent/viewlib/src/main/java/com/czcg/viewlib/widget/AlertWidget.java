@@ -1,68 +1,136 @@
 package com.czcg.viewlib.widget;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.czcg.viewlib.R;
 import com.czcg.viewlib.beans.AlertBean;
-
+import com.czcg.viewlib.utils.BaseNiceDialog;
+import com.czcg.viewlib.utils.ClickListener;
+import com.czcg.viewlib.utils.ViewConvertListener;
+import com.czcg.viewlib.utils.ViewHolder;
 
 /**
- * Created by 被咯苏州 on 2016/8/19.
+ * 对话框
+ * 显示确认取消的对话框
+ *
+ * @author leipeng
  */
-public class AlertWidget {
-    private static AlertWidget widget = new AlertWidget();
 
-    private AlertWidget() {
+public class AlertWidget extends BaseNiceDialog {
+
+    private static String ALERT_BEAN = "alertBean";
+    private static String CLICK_LISTENER = "click_listener";
+
+    private AlertBean mAlertBean;
+
+    private TextView tvTitle, tvContent;
+    private Button btnSuccess, btnCancel;
+
+
+    public static AlertWidget init() {
+        return new AlertWidget();
     }
 
-    public static AlertWidget getInstance() {
-        return widget;
+    private ClickListener clickListener;
+
+    @Override
+    public int intLayoutId() {
+        return R.layout.dialog_alert;
     }
 
-    public AlertManagerListener alertManagerListener;
-
-    public void createFragment(Context context, AlertBean alertBean, AlertManagerListener listener) {
-        alertManagerListener = listener;
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogCustom))
-                .setTitle(alertBean.getTitle())
-                .setMessage(alertBean.getMessage())
-                // .setView(inflate)
-                // http://www.cnblogs.com/howlaa/p/4126536.html 使alertDialog.builder不会点击外面和按返回键消失
-                .setCancelable(false);
-        String confirmTitle = "确定";
-        if (alertBean.getConfirm() != null && !"".equals(alertBean.getConfirm())) {
-            confirmTitle = alertBean.getConfirm();
-        }
-        String cancelTitle = "取消";
-        if(alertBean.getCancel() != null && !"".equals(alertBean.getCancel())){
-            cancelTitle = alertBean.getCancel();
-        }
-        alertBean.getCancel();
-        if (alertBean.isIsJudgment()) {
-            builder.setNegativeButton(cancelTitle, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    callback(false);
-                }
-            });
-        }
-        builder.setPositiveButton(confirmTitle, new DialogInterface.OnClickListener() {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setConvertListener(new ViewConvertListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                callback(true);
+            public void convertView(ViewHolder holder, final BaseNiceDialog dialog) {
+                holder.setOnClickListener(R.id.btn_cancel, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickListener.listener(dialog, false);
+                    }
+                });
+                holder.setOnClickListener(R.id.btn_success, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickListener.listener(dialog, true);
+                    }
+                });
             }
         });
-        builder.show();
+        if (savedInstanceState != null) {
+            mAlertBean = savedInstanceState.getParcelable(ALERT_BEAN);
+            clickListener = savedInstanceState.getParcelable(CLICK_LISTENER);
+        }
     }
 
-    public interface AlertManagerListener {
-        void listener(boolean flag);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tvTitle = (TextView) view.findViewById(R.id.tv_title);
+        tvContent = (TextView) view.findViewById(R.id.tv_content);
+
+        btnSuccess = (Button) view.findViewById(R.id.btn_success);
+        btnCancel = (Button) view.findViewById(R.id.btn_cancel);
+
+        if (mAlertBean == null) {
+            return;
+        }
+
+        if (mAlertBean.getTitle() == null || "".equals(mAlertBean.getTitle())) {
+            tvTitle.setVisibility(View.GONE);
+            tvContent.setGravity(Gravity.CENTER);
+        } else {
+            tvTitle.setText(mAlertBean.getTitle());
+        }
+
+        tvContent.setText(mAlertBean.getMessage());
+
+        if (mAlertBean.getConfirm() == null || "".equals(mAlertBean.getConfirm())) {
+            btnSuccess.setText("确认");
+        } else {
+            btnSuccess.setText(mAlertBean.getConfirm());
+        }
+
+        if (mAlertBean.getCancel() == null || "".equals(mAlertBean.getCancel())) {
+            btnCancel.setText("取消");
+        } else {
+            btnCancel.setText(mAlertBean.getCancel());
+        }
+
+        if (!mAlertBean.isJudgment()) {
+            btnSuccess.setBackground(ResourcesCompat.getDrawable(_mActivity.getResources(), R.drawable.layer_alert_center, null));
+            btnCancel.setVisibility(View.GONE);
+        }
     }
 
-    public void callback(boolean flag) {
-        alertManagerListener.listener(flag);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(ALERT_BEAN, mAlertBean);
+        outState.putParcelable(CLICK_LISTENER, clickListener);
     }
+
+    public AlertWidget setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
+        return this;
+    }
+
+    public AlertWidget setAlertBean(AlertBean mAlertBean) {
+        this.mAlertBean = mAlertBean;
+        return this;
+    }
+
+    @Override
+    public void onDestroyView() {
+        this.clickListener = null;
+        super.onDestroyView();
+    }
+
 }

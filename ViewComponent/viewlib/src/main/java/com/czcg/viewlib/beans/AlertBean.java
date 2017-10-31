@@ -1,11 +1,12 @@
 package com.czcg.viewlib.beans;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by LeiP on 2016/4/13.
  */
-public class AlertBean implements Serializable{
+public class AlertBean implements Parcelable{
 
     /**
      * title : ssss
@@ -20,16 +21,42 @@ public class AlertBean implements Serializable{
     private boolean isJudgment = false;
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.message);
+        dest.writeString(this.confirm);
+        dest.writeString(this.cancel);
+        dest.writeByte(this.isJudgment ? (byte) 1 : (byte) 0);
+    }
+
     public AlertBean() {
     }
 
-    public AlertBean(String title, String message, String confirm, String cancel, boolean isJudgment) {
-        this.title = title;
-        this.message = message;
-        this.confirm = confirm;
-        this.cancel = cancel;
-        this.isJudgment = isJudgment;
+    protected AlertBean(Parcel in) {
+        this.title = in.readString();
+        this.message = in.readString();
+        this.confirm = in.readString();
+        this.cancel = in.readString();
+        this.isJudgment = in.readByte() != 0;
     }
+
+    public static final Creator<AlertBean> CREATOR = new Creator<AlertBean>() {
+        @Override
+        public AlertBean createFromParcel(Parcel source) {
+            return new AlertBean(source);
+        }
+
+        @Override
+        public AlertBean[] newArray(int size) {
+            return new AlertBean[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -45,14 +72,6 @@ public class AlertBean implements Serializable{
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public boolean isIsJudgment() {
-        return isJudgment;
-    }
-
-    public void setIsJudgment(boolean isJudgment) {
-        this.isJudgment = isJudgment;
     }
 
     public String getConfirm() {
