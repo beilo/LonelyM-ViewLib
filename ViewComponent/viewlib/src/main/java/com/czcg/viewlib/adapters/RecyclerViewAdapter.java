@@ -1,15 +1,14 @@
 package com.czcg.viewlib.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.czcg.viewlib.R;
 import com.czcg.viewlib.beans.BensEntity;
-import com.czcg.viewlib.widget.SheetViewWidget;
 
 import java.util.List;
 
@@ -18,19 +17,12 @@ import java.util.List;
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    public Context context;
-    public List<BensEntity> stringList;
-    public ItemClickListener itemClickListener;
+    private List<BensEntity> stringList;
+    private ItemClickListener itemClickListener;
 
 
-    public RecyclerViewAdapter(Context context, List<BensEntity> stringList, ItemClickListener itemClickListener) {
-        this.context = context;
+    public RecyclerViewAdapter(List<BensEntity> stringList) {
         this.stringList = stringList;
-        this.itemClickListener = itemClickListener;
-    }
-
-    public RecyclerViewAdapter() {
-
     }
 
     @Override
@@ -42,12 +34,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, final int position) {
         final BensEntity btnsEntity = stringList.get(position);
+
         holder.mText.setText(btnsEntity.getTitle());
-        holder.mText.setOnClickListener(new View.OnClickListener() {
+        if(btnsEntity.getIcon() == 0){
+            holder.mIcon.setVisibility(View.GONE);
+        }else {
+            holder.mIcon.setImageResource(btnsEntity.getIcon());
+        }
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SheetViewWidget.init().getTitle(btnsEntity.getTitle());
-                itemClickListener.dismiss();
+                itemClickListener.itemClick(v, btnsEntity.getTitle());
             }
         });
     }
@@ -58,23 +55,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return stringList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
-        public TextView mText;
+        TextView mText;
+        ImageView mIcon;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             view = itemView;
             mText = (TextView) view.findViewById(R.id.text);
-            mText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            });
+            mIcon = (ImageView) view.findViewById(R.id.img_icon);
         }
     }
 
-    public interface ItemClickListener{
-        public void dismiss();
+    public interface ItemClickListener {
+        void itemClick(View view, String title);
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 }

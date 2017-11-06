@@ -9,12 +9,21 @@ public class BensEntity implements Serializable {
     public BensEntity() {
     }
 
-    public BensEntity(String title) {
-
+    public BensEntity(int icon,String title) {
+        this.icon = icon;
         this.title = title;
     }
 
     private String title;
+    private int icon;
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
 
     public String getTitle() {
         return title;

@@ -155,7 +155,9 @@ public abstract class BaseNiceDialog extends DialogFragment {
             }
 
             //设置dialog进入、退出的动画
-            window.setWindowAnimations(animStyle);
+            if(animStyle != -1){
+                window.setWindowAnimations(animStyle);
+            }
             window.setAttributes(lp);
         }
         setCancelable(outCancel);

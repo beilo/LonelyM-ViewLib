@@ -25,6 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Context context;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,16 +66,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 SheetBean bean = new SheetBean();
                 bean.setTitle("测试");
                 List<BensEntity> list = new ArrayList<>();
-                list.add(new BensEntity("1"));
-                list.add(new BensEntity("2"));
-                list.add(new BensEntity("3"));
+
+                int identifier1 = getResources().getIdentifier("i_driver", "drawable", "com.czcg.viewcomponent");
+                int identifier2 = getResources().getIdentifier("i_ship", "drawable", "com.czcg.viewcomponent");
+                int identifier3 = getResources().getIdentifier("i_track", "drawable", "com.czcg.gwt");
+                list.add(new BensEntity(identifier1,"1"));
+                list.add(new BensEntity(identifier2,"2"));
+                list.add(new BensEntity(identifier3,"3"));
                 bean.setBtns(list);
-                SheetViewWidget.init().createFragment(MainActivity.this, bean, new SheetViewWidget.SheetViewListener() {
+
+                SheetViewWidget sheetView = SheetViewWidget.newInstance(bean);
+                sheetView.setShootingListener(new SheetViewWidget.ShootingListener() {
                     @Override
-                    public void listener(String title) {
+                    public void callbackSheetView(String title) {
                         ToastWidget.init().createToast(context, title, ToastWidget.STATUS_SUCCESS).show();
                     }
                 });
+                sheetView.show(getSupportFragmentManager());
                 break;
             case R.id.bt_5:
                 final AlertBean alertBean = new AlertBean();
@@ -110,4 +118,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
 }
