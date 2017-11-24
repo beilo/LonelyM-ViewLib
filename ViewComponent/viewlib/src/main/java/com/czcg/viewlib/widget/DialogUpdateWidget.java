@@ -10,7 +10,6 @@ import com.daimajia.numberprogressbar.NumberProgressBar;
 
 /**
  * @author 被咯苏州
- * @date 2017/10/30
  */
 
 public class DialogUpdateWidget extends BaseNiceDialog {

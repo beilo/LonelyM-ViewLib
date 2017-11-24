@@ -96,7 +96,6 @@ public abstract class BaseNiceDialog extends DialogFragment {
     /**
      * 屏幕旋转等导致DialogFragment销毁后重建时保存数据
      *
-     * @param outState
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -141,9 +140,9 @@ public abstract class BaseNiceDialog extends DialogFragment {
             //设置dialog宽度
             if (width == 0) {
                 lp.width = Utils.getScreenWidth(getContext()) - 2 * Utils.dp2px(getContext(), margin);
-            } else if(width == -1) {
+            } else if (width == -1) {
                 lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-            }else {
+            } else {
                 lp.width = Utils.dp2px(getContext(), width);
             }
 
@@ -155,7 +154,7 @@ public abstract class BaseNiceDialog extends DialogFragment {
             }
 
             //设置dialog进入、退出的动画
-            if(animStyle != -1){
+            if (animStyle != -1) {
                 window.setWindowAnimations(animStyle);
             }
             window.setAttributes(lp);

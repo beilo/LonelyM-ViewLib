@@ -17,7 +17,6 @@ import java.io.Serializable;
 
 /**
  * @author Administrator
- * @date 2015/10/23
  */
 public class SheetViewWidget extends BaseNiceDialog {
 
@@ -43,7 +42,6 @@ public class SheetViewWidget extends BaseNiceDialog {
         super.onCreate(savedInstanceState);
         setShowBottom(true);
         setAnimStyle(0);
-
         if (savedInstanceState != null) {
             shootingListener = (ShootingListener) savedInstanceState.getSerializable(SHOOT_LISTENER);
         }
