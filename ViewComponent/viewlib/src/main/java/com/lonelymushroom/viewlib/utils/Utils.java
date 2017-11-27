@@ -1,4 +1,4 @@
-package com.czcg.viewlib.utils;
+package com.lonelymushroom.viewlib.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

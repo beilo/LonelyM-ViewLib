@@ -1,4 +1,4 @@
-package com.czcg.viewcomponent;
+package com.lonelymushroom.viewcomponent;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,13 +9,13 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.czcg.viewlib.beans.AlertBean;
-import com.czcg.viewlib.beans.BensEntity;
-import com.czcg.viewlib.beans.SheetBean;
-import com.czcg.viewlib.widget.AlertWidget;
-import com.czcg.viewlib.widget.DialogUpdateWidget;
-import com.czcg.viewlib.widget.DialogWidget;
-import com.czcg.viewlib.widget.SheetViewWidget;
+import com.lonelymushroom.viewlib.beans.AlertBean;
+import com.lonelymushroom.viewlib.beans.BensEntity;
+import com.lonelymushroom.viewlib.beans.SheetBean;
+import com.lonelymushroom.viewlib.widget.AlertWidget;
+import com.lonelymushroom.viewlib.widget.DialogUpdateWidget;
+import com.lonelymushroom.viewlib.widget.DialogWidget;
+import com.lonelymushroom.viewlib.widget.SheetViewWidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,15 +71,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 bean.setTitle("测试");
                 List<BensEntity> list = new ArrayList<>();
 
-                int identifier1 = getResources().getIdentifier("i_driver", "drawable", "com.czcg.viewcomponent");
-                int identifier2 = getResources().getIdentifier("i_ship", "drawable", "com.czcg.viewcomponent");
-                int identifier3 = getResources().getIdentifier("i_track", "drawable", "com.czcg.gwt");
-                list.add(new BensEntity(identifier1, "1"));
-                list.add(new BensEntity(identifier2, "2"));
-                list.add(new BensEntity(identifier3, "3"));
+                list.add(new BensEntity("i_driver", "1"));
+                list.add(new BensEntity("i_ship", "2"));
+                list.add(new BensEntity("i_track", "3"));
                 bean.setBtns(list);
 
-                SheetViewWidget sheetView = SheetViewWidget.newInstance(bean);
+                SheetViewWidget sheetView = SheetViewWidget.newInstance(bean,"drawable","com.lonelymushroom.viewcomponent");
                 sheetView.setShootingListener(new SheetViewWidget.ShootingListener() {
                     @Override
                     public void callbackSheetView(String title) {

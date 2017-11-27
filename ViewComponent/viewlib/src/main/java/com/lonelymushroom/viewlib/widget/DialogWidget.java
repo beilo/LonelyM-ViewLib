@@ -1,4 +1,4 @@
-package com.czcg.viewlib.widget;
+package com.lonelymushroom.viewlib.widget;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,10 +6,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.czcg.viewlib.R;
-import com.czcg.viewlib.utils.BaseNiceDialog;
-import com.czcg.viewlib.utils.ViewConvertListener;
-import com.czcg.viewlib.utils.ViewHolder;
+import com.lonelymushroom.viewlib.R;
+import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
+import com.lonelymushroom.viewlib.utils.ViewConvertListener;
+import com.lonelymushroom.viewlib.utils.ViewHolder;
 
 
 /**
@@ -36,7 +36,7 @@ public class DialogWidget extends BaseNiceDialog {
         setConvertListener(new ViewConvertListener() {
             @Override
             public void convertView(ViewHolder holder, BaseNiceDialog dialog) {
-                ImageView imageView = holder.getView(R.id.img);
+                ImageView imageView = holder.getView(R.id.viewlib_img);
                 // 加载动画
                 Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
                         _mActivity, R.anim.loading_animation);

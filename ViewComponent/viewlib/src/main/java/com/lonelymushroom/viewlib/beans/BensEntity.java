@@ -1,4 +1,4 @@
-package com.czcg.viewlib.beans;
+package com.lonelymushroom.viewlib.beans;
 
 import java.io.Serializable;
 
@@ -9,19 +9,19 @@ public class BensEntity implements Serializable {
     public BensEntity() {
     }
 
-    public BensEntity(int icon,String title) {
+    public BensEntity(String icon,String title) {
         this.icon = icon;
         this.title = title;
     }
 
     private String title;
-    private int icon;
+    private String icon;
 
-    public int getIcon() {
+    public String getIcon() {
         return icon;
     }
 
-    public void setIcon(int icon) {
+    public void setIcon(String icon) {
         this.icon = icon;
     }
 

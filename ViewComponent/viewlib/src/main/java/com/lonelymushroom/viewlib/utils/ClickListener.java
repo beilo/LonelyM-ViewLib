@@ -1,4 +1,4 @@
-package com.czcg.viewlib.utils;
+package com.lonelymushroom.viewlib.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;

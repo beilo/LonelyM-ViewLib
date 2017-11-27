@@ -1,4 +1,4 @@
-package com.czcg.viewlib.utils;
+package com.lonelymushroom.viewlib.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.czcg.viewlib.R;
+import com.lonelymushroom.viewlib.R;
 
 
 /**

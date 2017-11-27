@@ -1,4 +1,4 @@
-package com.czcg.viewlib.widget;
+package com.lonelymushroom.viewlib.widget;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.czcg.viewlib.R;
-import com.czcg.viewlib.beans.AlertBean;
-import com.czcg.viewlib.utils.BaseNiceDialog;
-import com.czcg.viewlib.utils.ClickListener;
-import com.czcg.viewlib.utils.ViewConvertListener;
-import com.czcg.viewlib.utils.ViewHolder;
+import com.lonelymushroom.viewlib.R;
+import com.lonelymushroom.viewlib.beans.AlertBean;
+import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
+import com.lonelymushroom.viewlib.utils.ClickListener;
+import com.lonelymushroom.viewlib.utils.ViewConvertListener;
+import com.lonelymushroom.viewlib.utils.ViewHolder;
 
 /**
  * 对话框

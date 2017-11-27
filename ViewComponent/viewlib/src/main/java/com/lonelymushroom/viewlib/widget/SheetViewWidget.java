@@ -1,4 +1,4 @@
-package com.czcg.viewlib.widget;
+package com.lonelymushroom.viewlib.widget;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,10 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.czcg.viewlib.R;
-import com.czcg.viewlib.adapters.RecyclerViewAdapter;
-import com.czcg.viewlib.beans.SheetBean;
-import com.czcg.viewlib.utils.BaseNiceDialog;
+import com.lonelymushroom.viewlib.R;
+import com.lonelymushroom.viewlib.adapters.RecyclerViewAdapter;
+import com.lonelymushroom.viewlib.beans.SheetBean;
+import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
 
 import java.io.Serializable;
 
@@ -28,11 +28,13 @@ public class SheetViewWidget extends BaseNiceDialog {
 
     private ShootingListener shootingListener;
 
-    public static SheetViewWidget newInstance(SheetBean sheetBean) {
+    public static SheetViewWidget newInstance(SheetBean sheetBean, String defType, String defPackage) {
 
         SheetViewWidget fragment = new SheetViewWidget();
         Bundle bundle = new Bundle();
         bundle.putSerializable("sheetList", sheetBean);
+        bundle.putString("defType", defType);
+        bundle.putString("defPackage", defPackage);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -52,10 +54,16 @@ public class SheetViewWidget extends BaseNiceDialog {
         super.onViewCreated(view, savedInstanceState);
         Bundle arguments = getArguments();
         SheetBean sheetBean = (SheetBean) arguments.getSerializable("sheetList");
-        recyView = (RecyclerView) view.findViewById(R.id.recyView);
-        text = (TextView) view.findViewById(R.id.tv_cancel);
+        String defType = arguments.getString("defType");
+        String defPackage = arguments.getString("defPackage");
+        if (sheetBean == null){
+            return;
+        }
 
-        recyclerViewAdapter = new RecyclerViewAdapter(sheetBean.getBtns());
+        recyView = (RecyclerView) view.findViewById(R.id.viewlib_recyView);
+        text = (TextView) view.findViewById(R.id.viewlib_tv_cancel);
+
+        recyclerViewAdapter = new RecyclerViewAdapter(sheetBean.getBtns(), _mActivity, defType, defPackage);
         recyclerViewAdapter.setItemClickListener(new RecyclerViewAdapter.ItemClickListener() {
             @Override
             public void itemClick(View view, String title) {

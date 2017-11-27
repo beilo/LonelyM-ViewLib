@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-          package="com.czcg.viewlib"
+          package="com.lonelymushroom.viewlib"
 >
 
     <application android:allowBackup="true"

@@ -1,5 +1,6 @@
-package com.czcg.viewlib.adapters;
+package com.lonelymushroom.viewlib.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.czcg.viewlib.R;
-import com.czcg.viewlib.beans.BensEntity;
+import com.lonelymushroom.viewlib.R;
+import com.lonelymushroom.viewlib.beans.BensEntity;
 
 import java.util.List;
 
@@ -18,11 +19,17 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private List<BensEntity> stringList;
+    private Context mContext;
+    private String mDefType, mDefPackage;
+
     private ItemClickListener itemClickListener;
 
 
-    public RecyclerViewAdapter(List<BensEntity> stringList) {
+    public RecyclerViewAdapter(List<BensEntity> stringList, Context context, String defType, String defPackage) {
         this.stringList = stringList;
+        this.mContext = context;
+        this.mDefType = defType;
+        this.mDefPackage = defPackage;
     }
 
     @Override
@@ -36,10 +43,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final BensEntity btnsEntity = stringList.get(position);
 
         holder.mText.setText(btnsEntity.getTitle());
-        if(btnsEntity.getIcon() == 0){
+        if (btnsEntity.getIcon() == null || "".equals(btnsEntity.getIcon())) {
             holder.mIcon.setVisibility(View.GONE);
-        }else {
-            holder.mIcon.setImageResource(btnsEntity.getIcon());
+        } else {
+            int identifier = mContext.getResources().getIdentifier(btnsEntity.getIcon(), mDefType, mDefPackage);
+            holder.mIcon.setImageResource(identifier);
         }
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +71,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            mText = (TextView) view.findViewById(R.id.text);
-            mIcon = (ImageView) view.findViewById(R.id.img_icon);
+            mText = (TextView) view.findViewById(R.id.viewlib_text);
+            mIcon = (ImageView) view.findViewById(R.id.viewlib_img_icon);
         }
     }
 

@@ -1,11 +1,11 @@
-package com.czcg.viewlib.widget;
+package com.lonelymushroom.viewlib.widget;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.czcg.viewlib.R;
-import com.czcg.viewlib.utils.BaseNiceDialog;
+import com.lonelymushroom.viewlib.R;
+import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
 import com.daimajia.numberprogressbar.NumberProgressBar;
 
 /**

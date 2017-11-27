@@ -1,12 +1,12 @@
-package com.czcg.viewlib.widget;
+package com.lonelymushroom.viewlib.widget;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.ContextThemeWrapper;
 
-import com.czcg.viewlib.R;
-import com.czcg.viewlib.beans.AlertBean;
+import com.lonelymushroom.viewlib.R;
+import com.lonelymushroom.viewlib.beans.AlertBean;
 
 /**
  * alert 弹出框
