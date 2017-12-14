@@ -19,10 +19,10 @@ public class AlertWidget {
 
     private AlertManagerListener alertManagerListener;
 
-    public static AlertWidget init(){
-        if (widget == null){
-            synchronized (AlertWidget.class){
-                if (widget == null){
+    public static AlertWidget init() {
+        if (widget == null) {
+            synchronized (AlertWidget.class) {
+                if (widget == null) {
                     widget = new AlertWidget();
                 }
             }
@@ -38,15 +38,22 @@ public class AlertWidget {
                 // .setView(inflate)
                 // http://www.cnblogs.com/howlaa/p/4126536.html 使alertDialog.builder不会点击外面和按返回键消失
                 .setCancelable(false);
+
+        String confirm = (alertBean.getConfirm() == null || "".equals(alertBean.getConfirm()))
+                ? "确定" : alertBean.getConfirm();
+
+        String cancel = (alertBean.getCancel() == null || "".equals(alertBean.getCancel()))
+                ? "取消" : alertBean.getCancel();
+
         if (alertBean.isJudgment()) {
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     callback(false);
                 }
             });
         }
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(confirm, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 callback(true);
