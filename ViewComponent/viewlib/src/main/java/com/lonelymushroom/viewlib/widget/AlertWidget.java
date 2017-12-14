@@ -62,6 +62,10 @@ public class AlertWidget {
         builder.show();
     }
 
+    public void cleanListener(){
+        alertManagerListener = null;
+    }
+
     public interface AlertManagerListener {
         void listener(boolean flag);
     }
