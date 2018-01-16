@@ -62,7 +62,7 @@ public class AlertWidget {
         builder.show();
     }
 
-    public void cleanListener(){
+    public void cleanListener() {
         alertManagerListener = null;
     }
 
@@ -71,6 +71,7 @@ public class AlertWidget {
     }
 
     public void callback(boolean flag) {
-        alertManagerListener.listener(flag);
+        if (alertManagerListener != null)
+            alertManagerListener.listener(flag);
     }
 }

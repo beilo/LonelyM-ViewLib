@@ -32,7 +32,7 @@ public class SheetViewWidget extends BaseNiceDialog {
 
         SheetViewWidget fragment = new SheetViewWidget();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("sheetList", sheetBean);
+        bundle.putParcelable("sheetList", sheetBean);
         bundle.putString("defType", defType);
         bundle.putString("defPackage", defPackage);
         fragment.setArguments(bundle);
@@ -53,7 +53,7 @@ public class SheetViewWidget extends BaseNiceDialog {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle arguments = getArguments();
-        SheetBean sheetBean = (SheetBean) arguments.getSerializable("sheetList");
+        SheetBean sheetBean = arguments.getParcelable("sheetList");
         String defType = arguments.getString("defType");
         String defPackage = arguments.getString("defPackage");
         if (sheetBean == null){

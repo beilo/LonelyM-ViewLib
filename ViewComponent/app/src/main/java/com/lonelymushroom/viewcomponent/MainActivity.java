@@ -18,7 +18,6 @@ import com.lonelymushroom.viewlib.widget.DialogWidget;
 import com.lonelymushroom.viewlib.widget.SheetViewWidget;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
     Context context;
@@ -69,11 +68,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.bt_4:
                 SheetBean bean = new SheetBean();
                 bean.setTitle("测试");
-                List<BensEntity> list = new ArrayList<>();
+                ArrayList<BensEntity> list = new ArrayList<>();
 
-                list.add(new BensEntity("i_driver", "1"));
-                list.add(new BensEntity("i_ship", "2"));
-                list.add(new BensEntity("i_track", "3"));
+                BensEntity bensEntity1 = new BensEntity();
+                bensEntity1.setIcon("i_driver");
+                bensEntity1.setTitle("1");
+                list.add(bensEntity1);
+
+                BensEntity bensEntity2 = new BensEntity();
+                bensEntity2.setIcon("i_ship");
+                bensEntity2.setTitle("2");
+                list.add(bensEntity2);
+
+                BensEntity bensEntity3 = new BensEntity();
+                bensEntity3.setIcon("i_track");
+                bensEntity3.setTitle("3");
+                list.add(bensEntity3);
                 bean.setBtns(list);
 
                 SheetViewWidget sheetView = SheetViewWidget.newInstance(bean,"drawable","com.lonelymushroom.viewcomponent");
