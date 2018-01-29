@@ -44,30 +44,34 @@ public class AlertWidgetCustom extends BaseNiceDialog {
         return R.layout.dialog_alert;
     }
 
+    private ViewConvertListener convertListener;
+    @Override
+    public void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+        if (convertListener != null) {
+            convertListener.convertView(holder, dialog);
+        }
+    }
+    public AlertWidgetCustom setConvertListener(ViewConvertListener convertListener) {
+        this.convertListener = convertListener;
+        return this;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setConvertListener(new ViewConvertListener() {
-            @Override
-            public void convertView(ViewHolder holder, final BaseNiceDialog dialog) {
-                holder.setOnClickListener(R.id.btn_cancel, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickListener.listener(dialog, false);
-                    }
-                });
-                holder.setOnClickListener(R.id.btn_success, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickListener.listener(dialog, true);
-                    }
-                });
-            }
-        });
         if (savedInstanceState != null) {
             mAlertBean = savedInstanceState.getParcelable(ALERT_BEAN);
             clickListener = savedInstanceState.getParcelable(CLICK_LISTENER);
+            convertListener = savedInstanceState.getParcelable("listener");
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(ALERT_BEAN, mAlertBean);
+        outState.putParcelable(CLICK_LISTENER, clickListener);
+        outState.putParcelable("listener", convertListener);
     }
 
     @Override
@@ -110,13 +114,6 @@ public class AlertWidgetCustom extends BaseNiceDialog {
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(ALERT_BEAN, mAlertBean);
-        outState.putParcelable(CLICK_LISTENER, clickListener);
-    }
-
     public AlertWidgetCustom setClickListener(ClickListener clickListener) {
         this.clickListener = clickListener;
         return this;
@@ -130,6 +127,8 @@ public class AlertWidgetCustom extends BaseNiceDialog {
     @Override
     public void onDestroyView() {
         this.clickListener = null;
+        convertListener = null;
+
         super.onDestroyView();
     }
 
