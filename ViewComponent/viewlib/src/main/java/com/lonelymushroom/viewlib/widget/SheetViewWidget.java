@@ -11,8 +11,7 @@ import com.lonelymushroom.viewlib.R;
 import com.lonelymushroom.viewlib.adapters.RecyclerViewAdapter;
 import com.lonelymushroom.viewlib.beans.SheetBean;
 import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
-
-import java.io.Serializable;
+import com.lonelymushroom.viewlib.utils.SheetWidgetListener;
 
 
 /**
@@ -20,13 +19,13 @@ import java.io.Serializable;
  */
 public class SheetViewWidget extends BaseNiceDialog {
 
-    private static final String SHOOT_LISTENER = "shootingListener";
+    private static final String SHEET_LISTENER = "sheetWidgetListener";
 
     RecyclerView recyView;
     TextView text;
     RecyclerViewAdapter recyclerViewAdapter;
 
-    private ShootingListener shootingListener;
+    private SheetWidgetListener listener;
 
     public static SheetViewWidget newInstance(SheetBean sheetBean, String defType, String defPackage) {
 
@@ -45,7 +44,7 @@ public class SheetViewWidget extends BaseNiceDialog {
         setShowBottom(true);
         setAnimStyle(0);
         if (savedInstanceState != null) {
-            shootingListener = (ShootingListener) savedInstanceState.getSerializable(SHOOT_LISTENER);
+            listener = savedInstanceState.getParcelable(SHEET_LISTENER);
         }
     }
 
@@ -67,7 +66,7 @@ public class SheetViewWidget extends BaseNiceDialog {
         recyclerViewAdapter.setItemClickListener(new RecyclerViewAdapter.ItemClickListener() {
             @Override
             public void itemClick(View view, String title) {
-                shootingListener.callbackSheetView(title);
+                listener.listener(title);
                 getDialog().dismiss();
             }
         });
@@ -86,23 +85,19 @@ public class SheetViewWidget extends BaseNiceDialog {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SHOOT_LISTENER, shootingListener);
+        outState.putParcelable(SHEET_LISTENER, listener);
     }
 
     @Override
     public void onDestroyView() {
         recyclerViewAdapter.setItemClickListener(null);
         text.setOnClickListener(null);
-        shootingListener = null;
+        listener = null;
         super.onDestroyView();
     }
 
-    public void setShootingListener(ShootingListener shootingListener) {
-        this.shootingListener = shootingListener;
-    }
-
-    public interface ShootingListener extends Serializable {
-        void callbackSheetView(String title);
+    public void setSheetWidgetListener(SheetWidgetListener listener) {
+        this.listener = listener;
     }
 
     @Override

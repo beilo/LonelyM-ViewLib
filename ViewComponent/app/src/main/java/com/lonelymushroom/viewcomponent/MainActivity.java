@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.lonelymushroom.viewlib.beans.AlertBean;
 import com.lonelymushroom.viewlib.beans.BensEntity;
 import com.lonelymushroom.viewlib.beans.SheetBean;
+import com.lonelymushroom.viewlib.utils.SheetWidgetListener;
 import com.lonelymushroom.viewlib.widget.AlertWidget;
 import com.lonelymushroom.viewlib.widget.DialogUpdateWidget;
 import com.lonelymushroom.viewlib.widget.DialogWidget;
@@ -87,9 +88,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 bean.setBtns(list);
 
                 SheetViewWidget sheetView = SheetViewWidget.newInstance(bean,"drawable","com.lonelymushroom.viewcomponent");
-                sheetView.setShootingListener(new SheetViewWidget.ShootingListener() {
+                sheetView.setSheetWidgetListener(new SheetWidgetListener() {
                     @Override
-                    public void callbackSheetView(String title) {
+                    public void listener(String title) {
                         Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                     }
                 });
