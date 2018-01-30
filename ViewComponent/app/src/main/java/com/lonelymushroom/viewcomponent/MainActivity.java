@@ -1,7 +1,6 @@
 package com.lonelymushroom.viewcomponent;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -12,10 +11,6 @@ import android.widget.Toast;
 import com.lonelymushroom.viewlib.beans.AlertBean;
 import com.lonelymushroom.viewlib.beans.BensEntity;
 import com.lonelymushroom.viewlib.beans.SheetBean;
-import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
-import com.lonelymushroom.viewlib.utils.SheetWidgetListener;
-import com.lonelymushroom.viewlib.utils.ViewConvertListener;
-import com.lonelymushroom.viewlib.utils.ViewHolder;
 import com.lonelymushroom.viewlib.widget.AlertWidget;
 import com.lonelymushroom.viewlib.widget.AlertWidgetCustom;
 import com.lonelymushroom.viewlib.widget.DialogUpdateWidget;
@@ -92,7 +87,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 bean.setBtns(list);
 
                 SheetViewWidget sheetView = SheetViewWidget.newInstance(bean, "drawable", "com.lonelymushroom.viewcomponent");
-                sheetView.setSheetWidgetListener(new SheetWidgetListener() {
+                sheetView.setSheetWidgetListener(new SheetViewWidget.SheetWidgetListener() {
                     @Override
                     public void listener(String title) {
                         Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
@@ -126,40 +121,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 alertBean1.setJudgment(true);
                 alertBean1.setConfirm("我是确定");
                 alertBean1.setCancel("我是取消");
-                AlertWidgetCustom.init()
+                AlertWidgetCustom
+                        .init()
                         .setAlertBean(alertBean1)
-                        .setConvertListener(new ViewConvertListener() {
+                        .setListener(new AlertWidgetCustom.AlertListener() {
                             @Override
-                            public void convertView(ViewHolder holder, BaseNiceDialog dialog) {
-                                holder.setOnClickListener(com.lonelymushroom.viewlib.R.id.btn_cancel, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Toast.makeText(context, "确认按钮", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                                holder.setOnClickListener(com.lonelymushroom.viewlib.R.id.btn_success, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Toast.makeText(context, "取消按钮", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                            public void callback(String string) {
+                                Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
                             }
                         })
-                        .show(getSupportFragmentManager());
+                        .show(getSupportFragmentManager(), "111");
                 break;
             case R.id.bt_7:
-                startActivity(new Intent(this, MainActivity.class));
+
+
                 break;
             default:
                 break;
         }
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         AlertWidget.init()
-                .cleanListener();
+                .dismiss();
     }
 }

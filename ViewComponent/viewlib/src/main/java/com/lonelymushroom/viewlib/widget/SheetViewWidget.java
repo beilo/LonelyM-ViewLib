@@ -11,15 +11,14 @@ import com.lonelymushroom.viewlib.R;
 import com.lonelymushroom.viewlib.adapters.RecyclerViewAdapter;
 import com.lonelymushroom.viewlib.beans.SheetBean;
 import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
-import com.lonelymushroom.viewlib.utils.SheetWidgetListener;
 
 
 /**
+ * 底部sheet
+ * @version 0.1.3 修复了内存重启后闪退的问题
  * @author Administrator
  */
 public class SheetViewWidget extends BaseNiceDialog {
-
-    private static final String SHEET_LISTENER = "sheetWidgetListener";
 
     RecyclerView recyView;
     TextView text;
@@ -43,9 +42,7 @@ public class SheetViewWidget extends BaseNiceDialog {
         super.onCreate(savedInstanceState);
         setShowBottom(true);
         setAnimStyle(0);
-        if (savedInstanceState != null) {
-            listener = savedInstanceState.getParcelable(SHEET_LISTENER);
-        }
+
     }
 
     @Override
@@ -55,7 +52,7 @@ public class SheetViewWidget extends BaseNiceDialog {
         SheetBean sheetBean = arguments.getParcelable("sheetList");
         String defType = arguments.getString("defType");
         String defPackage = arguments.getString("defPackage");
-        if (sheetBean == null){
+        if (sheetBean == null) {
             return;
         }
 
@@ -66,8 +63,8 @@ public class SheetViewWidget extends BaseNiceDialog {
         recyclerViewAdapter.setItemClickListener(new RecyclerViewAdapter.ItemClickListener() {
             @Override
             public void itemClick(View view, String title) {
-                listener.listener(title);
-                getDialog().dismiss();
+                invokeListener(title);
+                dismiss();
             }
         });
 
@@ -77,15 +74,9 @@ public class SheetViewWidget extends BaseNiceDialog {
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+                dismiss();
             }
         });
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(SHEET_LISTENER, listener);
     }
 
     @Override
@@ -96,12 +87,24 @@ public class SheetViewWidget extends BaseNiceDialog {
         super.onDestroyView();
     }
 
-    public void setSheetWidgetListener(SheetWidgetListener listener) {
-        this.listener = listener;
-    }
-
     @Override
     public int intLayoutId() {
         return R.layout.dialogfragment_shooting;
     }
+
+    private void invokeListener(String title) {
+        if (listener != null) {
+            listener.listener(title);
+        }
+    }
+
+    public interface SheetWidgetListener {
+        void listener(String title);
+    }
+
+    public void setSheetWidgetListener(SheetWidgetListener listener) {
+        this.listener = listener;
+    }
+
+
 }

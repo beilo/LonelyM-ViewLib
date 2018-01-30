@@ -210,4 +210,13 @@ public abstract class BaseNiceDialog extends DialogFragment {
         ft.add(this, String.valueOf(System.currentTimeMillis()));
         ft.commitAllowingStateLoss();
     }
+
+    public void show(FragmentManager manager,String tag) {
+        FragmentTransaction ft = manager.beginTransaction();
+        if (this.isAdded()) {
+            ft.remove(this).commit();
+        }
+        ft.add(this, tag);
+        ft.commitAllowingStateLoss();
+    }
 }

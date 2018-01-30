@@ -10,22 +10,21 @@ import com.lonelymushroom.viewlib.beans.AlertBean;
 
 /**
  * alert 弹出框
- * Created by leipe on 2017/11/24.
+ *
+ * @version 0.1.3 修复了builder在内存重启下的泄漏问题(在onDestroy调用dismiss)
+ *          Created by leipe on 2017/11/24.
  */
 
 public class AlertWidget {
 
     public static volatile AlertWidget widget;
 
+    private AlertDialog mDialog;
     private AlertManagerListener alertManagerListener;
 
     public static AlertWidget init() {
         if (widget == null) {
-            synchronized (AlertWidget.class) {
-                if (widget == null) {
-                    widget = new AlertWidget();
-                }
-            }
+            widget = new AlertWidget();
         }
         return widget;
     }
@@ -59,10 +58,14 @@ public class AlertWidget {
                 callback(true);
             }
         });
-        builder.show();
+        mDialog = builder.show();
     }
 
-    public void cleanListener() {
+    public void dismiss() {
+        if (mDialog != null) {
+            mDialog.dismiss();
+            mDialog = null;
+        }
         alertManagerListener = null;
     }
 
@@ -70,7 +73,7 @@ public class AlertWidget {
         void listener(boolean flag);
     }
 
-    public void callback(boolean flag) {
+    private void callback(boolean flag) {
         if (alertManagerListener != null)
             alertManagerListener.listener(flag);
     }

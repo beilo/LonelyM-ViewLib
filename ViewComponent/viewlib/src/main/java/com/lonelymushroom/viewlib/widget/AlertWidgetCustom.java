@@ -11,13 +11,11 @@ import android.widget.TextView;
 import com.lonelymushroom.viewlib.R;
 import com.lonelymushroom.viewlib.beans.AlertBean;
 import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
-import com.lonelymushroom.viewlib.utils.ClickListener;
-import com.lonelymushroom.viewlib.utils.ViewConvertListener;
-import com.lonelymushroom.viewlib.utils.ViewHolder;
 
 /**
  * 对话框
  * 显示确认取消的对话框
+ * @version 0.1.3 修复了内存重启后闪退的问题
  *
  * @author leipeng
  */
@@ -25,44 +23,27 @@ import com.lonelymushroom.viewlib.utils.ViewHolder;
 public class AlertWidgetCustom extends BaseNiceDialog {
 
     private static String ALERT_BEAN = "alertBean";
-    private static String CLICK_LISTENER = "click_listener";
 
     private AlertBean mAlertBean;
 
-    private TextView tvTitle, tvContent;
-    private Button btnSuccess, btnCancel;
+    private AlertListener listener;
 
 
     public static AlertWidgetCustom init() {
         return new AlertWidgetCustom();
     }
 
-    private ClickListener clickListener;
-
     @Override
     public int intLayoutId() {
         return R.layout.dialog_alert;
     }
 
-    private ViewConvertListener convertListener;
-    @Override
-    public void convertView(ViewHolder holder, BaseNiceDialog dialog) {
-        if (convertListener != null) {
-            convertListener.convertView(holder, dialog);
-        }
-    }
-    public AlertWidgetCustom setConvertListener(ViewConvertListener convertListener) {
-        this.convertListener = convertListener;
-        return this;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             mAlertBean = savedInstanceState.getParcelable(ALERT_BEAN);
-            clickListener = savedInstanceState.getParcelable(CLICK_LISTENER);
-            convertListener = savedInstanceState.getParcelable("listener");
         }
     }
 
@@ -70,18 +51,16 @@ public class AlertWidgetCustom extends BaseNiceDialog {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(ALERT_BEAN, mAlertBean);
-        outState.putParcelable(CLICK_LISTENER, clickListener);
-        outState.putParcelable("listener", convertListener);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        tvContent = (TextView) view.findViewById(R.id.tv_content);
+        TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
+        TextView tvContent = (TextView) view.findViewById(R.id.tv_content);
 
-        btnSuccess = (Button) view.findViewById(R.id.btn_success);
-        btnCancel = (Button) view.findViewById(R.id.btn_cancel);
+        Button btnSuccess = (Button) view.findViewById(R.id.btn_success);
+        Button btnCancel = (Button) view.findViewById(R.id.btn_cancel);
 
         if (mAlertBean == null) {
             return;
@@ -112,11 +91,27 @@ public class AlertWidgetCustom extends BaseNiceDialog {
             btnSuccess.setBackground(ResourcesCompat.getDrawable(_mActivity.getResources(), R.drawable.layer_alert_center, null));
             btnCancel.setVisibility(View.GONE);
         }
+
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                invokeListener("成功");
+                dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                invokeListener("失败");
+                dismiss();
+            }
+        });
     }
 
-    public AlertWidgetCustom setClickListener(ClickListener clickListener) {
-        this.clickListener = clickListener;
-        return this;
+    @Override
+    public void onDestroyView() {
+        listener = null;
+        super.onDestroyView();
     }
 
     public AlertWidgetCustom setAlertBean(AlertBean mAlertBean) {
@@ -124,12 +119,19 @@ public class AlertWidgetCustom extends BaseNiceDialog {
         return this;
     }
 
-    @Override
-    public void onDestroyView() {
-        this.clickListener = null;
-        convertListener = null;
+    public AlertWidgetCustom setListener(AlertListener listener) {
+        this.listener = listener;
+        return this;
+    }
 
-        super.onDestroyView();
+    private void invokeListener(String string) {
+        if (listener != null) {
+            listener.callback(string);
+        }
+    }
+
+    public interface AlertListener {
+        void callback(String string);
     }
 
 }
