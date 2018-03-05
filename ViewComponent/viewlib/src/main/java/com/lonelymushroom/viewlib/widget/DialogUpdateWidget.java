@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.lonelymushroom.viewlib.R;
 import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
-import com.daimajia.numberprogressbar.NumberProgressBar;
 
 /**
  * @author 被咯苏州
@@ -22,12 +22,24 @@ public class DialogUpdateWidget extends BaseNiceDialog {
     private int mInitProgress = 0;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mProgressBar = (NumberProgressBar) view.findViewById(R.id.progress_bar);
         mProgressBar.setProgress(mInitProgress);
     }
 
+    @Override
+    public void onDestroyView() {
+        if (getDialog() != null && getRetainInstance())
+            getDialog().setDismissMessage(null);
+        super.onDestroyView();
+    }
 
     /**
      * 设置进度条的数值

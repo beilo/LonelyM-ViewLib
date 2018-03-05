@@ -36,7 +36,6 @@ public abstract class BaseNiceDialog extends DialogFragment {
     private static final String CANCEL = "out_cancel";
     private static final String ANIM = "anim_style";
     private static final String LAYOUT = "layout_id";
-    private static final String LISTENER = "listener";
 
     private int margin;//左右边距
     private int width;//宽度
@@ -75,7 +74,6 @@ public abstract class BaseNiceDialog extends DialogFragment {
             outCancel = savedInstanceState.getBoolean(CANCEL);
             animStyle = savedInstanceState.getInt(ANIM);
             layoutId = savedInstanceState.getInt(LAYOUT);
-            convertListener = savedInstanceState.getParcelable(LISTENER);
         }
     }
 
@@ -108,7 +106,6 @@ public abstract class BaseNiceDialog extends DialogFragment {
         outState.putBoolean(CANCEL, outCancel);
         outState.putInt(ANIM, animStyle);
         outState.putInt(LAYOUT, layoutId);
-        outState.putParcelable(LISTENER, convertListener);
     }
 
     @Override

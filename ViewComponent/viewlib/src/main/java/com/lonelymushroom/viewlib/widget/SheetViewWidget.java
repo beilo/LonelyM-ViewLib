@@ -42,7 +42,7 @@ public class SheetViewWidget extends BaseNiceDialog {
         super.onCreate(savedInstanceState);
         setShowBottom(true);
         setAnimStyle(0);
-
+        setRetainInstance(true);
     }
 
     @Override
@@ -81,9 +81,13 @@ public class SheetViewWidget extends BaseNiceDialog {
 
     @Override
     public void onDestroyView() {
-        recyclerViewAdapter.setItemClickListener(null);
-        text.setOnClickListener(null);
-        listener = null;
+        if (getDialog() != null && getRetainInstance()) {
+            getDialog().setDismissMessage(null);
+        }else {
+            recyclerViewAdapter.setItemClickListener(null);
+            text.setOnClickListener(null);
+            listener = null;
+        }
         super.onDestroyView();
     }
 

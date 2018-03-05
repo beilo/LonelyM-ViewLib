@@ -2,7 +2,6 @@ package com.lonelymushroom.viewcomponent;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -18,39 +17,58 @@ import com.lonelymushroom.viewlib.widget.DialogWidget;
 import com.lonelymushroom.viewlib.widget.SheetViewWidget;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
     Context context;
 
+    Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_main);
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Random random = new Random();//默认构造方法
+                final int i2 = random.nextInt(100);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (dialogUpdateWidget != null)
+                            dialogUpdateWidget.setProgress(i2);
+                    }
+                });
+            }
+        }, 0, 3000);
     }
+
+    private DialogUpdateWidget dialogUpdateWidget;
 
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
+        if (fragment instanceof DialogUpdateWidget) {
+            dialogUpdateWidget = (DialogUpdateWidget) fragment;
+        }
     }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_1:
-                final DialogUpdateWidget dialogUpdateWidget = (DialogUpdateWidget) DialogUpdateWidget.init()
+                dialogUpdateWidget = (DialogUpdateWidget) DialogUpdateWidget.init()
                         .setmInitProgress(30)
                         .setOutCancel(true)
                         .setWidth(250)
                         .setHeight(100);
-                dialogUpdateWidget.show(getSupportFragmentManager());
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialogUpdateWidget.setProgress(89);
-                    }
-                });
+                dialogUpdateWidget.show(getSupportFragmentManager(), "111");
                 break;
             case R.id.bt_2:
                 // ToastWidget.init().createToast(context, "给我提示", ToastWidget.STATUS_SUCCESS).show();
@@ -145,6 +163,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        timer.cancel();
+
         AlertWidget.init()
                 .dismiss();
     }
