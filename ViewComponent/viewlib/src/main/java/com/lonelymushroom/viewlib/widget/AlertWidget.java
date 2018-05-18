@@ -12,7 +12,7 @@ import com.lonelymushroom.viewlib.beans.AlertBean;
  * alert 弹出框
  *
  * @version 0.1.3 修复了builder在内存重启下的泄漏问题(在onDestroy调用dismiss)
- *          Created by leipe on 2017/11/24.
+ * Created by leipe on 2017/11/24.
  */
 
 public class AlertWidget {
@@ -62,11 +62,19 @@ public class AlertWidget {
     }
 
     public void dismiss() {
-        if (mDialog != null) {
-            mDialog.dismiss();
-            mDialog = null;
+        // https://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager
+        try {
+            if ((mDialog != null) && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+        } catch (final IllegalArgumentException e) {
+            // Handle or log or ignore
+        } catch (final Exception e) {
+            // Handle or log or ignore
+        } finally {
+            this.mDialog = null;
+            alertManagerListener = null;
         }
-        alertManagerListener = null;
     }
 
     public interface AlertManagerListener {

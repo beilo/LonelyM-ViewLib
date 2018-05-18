@@ -37,7 +37,7 @@ publish {
     userOrg = 'lonely-mushroom'
     groupId = 'com.lonely-mushroom'
     artifactId = 'viewlib'
-    publishVersion = '0.1.4'
-    desc = 'view lib'
+    publishVersion = '0.1.5'
+    desc = 'fix AlertWidget dissmiss not attached to window manager and BaseNiceDialog is Activity has been destroyed'
     website = 'https://github.com/LonelyMushroom/LonelyM-ViewLib'
 }

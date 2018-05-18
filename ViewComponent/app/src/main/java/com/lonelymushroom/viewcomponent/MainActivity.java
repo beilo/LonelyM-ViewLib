@@ -131,6 +131,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                 }
                             }
                         });
+
+                AlertWidget.init()
+                        .createAlert(this, alertBean, new AlertWidget.AlertManagerListener() {
+                            @Override
+                            public void listener(boolean flag) {
+                                if (flag) {
+                                    Toast.makeText(context, "11", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(context, "22", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                 break;
             case R.id.bt_6:
                 final AlertBean alertBean1 = new AlertBean();
