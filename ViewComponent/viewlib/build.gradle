@@ -37,7 +37,7 @@ publish {
     userOrg = 'lonely-mushroom'
     groupId = 'com.lonely-mushroom'
     artifactId = 'viewlib'
-    publishVersion = '0.1.6'
-    desc = 'fix BaseNiceDialog show is _mActivity = null '
+    publishVersion = '0.1.7'
+    desc = 'DialogUpdateWidget add update title'
     website = 'https://github.com/LonelyMushroom/LonelyM-ViewLib'
 }
