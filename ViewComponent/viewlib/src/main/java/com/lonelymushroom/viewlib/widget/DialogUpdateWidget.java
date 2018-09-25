@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import android.widget.TextView;
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.lonelymushroom.viewlib.R;
 import com.lonelymushroom.viewlib.utils.BaseNiceDialog;
@@ -19,6 +20,9 @@ public class DialogUpdateWidget extends BaseNiceDialog {
     }
 
     private NumberProgressBar mProgressBar;
+    private TextView tvTitle;
+
+    private String title;
     private int mInitProgress = 0;
 
     @Override
@@ -31,7 +35,16 @@ public class DialogUpdateWidget extends BaseNiceDialog {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mProgressBar = (NumberProgressBar) view.findViewById(R.id.progress_bar);
+        tvTitle = (TextView) view.findViewById(R.id.tv_1);
         mProgressBar.setProgress(mInitProgress);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (title != null) {
+            tvTitle.setText(title);
+        }
     }
 
     @Override
@@ -51,6 +64,11 @@ public class DialogUpdateWidget extends BaseNiceDialog {
         if (mProgressBar != null) {
             mProgressBar.setProgress(progress);
         }
+    }
+
+    public DialogUpdateWidget setTitle(String title) {
+        this.title = title;
+        return this;
     }
 
     @Override

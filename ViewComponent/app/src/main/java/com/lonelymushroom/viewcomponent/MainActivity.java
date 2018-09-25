@@ -40,8 +40,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (dialogUpdateWidget != null)
+                        if (dialogUpdateWidget != null) {
                             dialogUpdateWidget.setProgress(i2);
+                        }
                     }
                 });
             }
@@ -64,6 +65,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.bt_1:
                 dialogUpdateWidget = (DialogUpdateWidget) DialogUpdateWidget.init()
+                        .setTitle("11111")
                         .setmInitProgress(30)
                         .setOutCancel(true)
                         .setWidth(250)

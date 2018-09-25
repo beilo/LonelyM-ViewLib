@@ -204,14 +204,15 @@ public abstract class BaseNiceDialog extends DialogFragment {
 
     public void show(FragmentManager manager, String tag) {
         // https://bugly.qq.com/v2/crash-reporting/crashes/7c13cdd351/3604?pid=1 问题
-        if (_mActivity == null || _mActivity.isDestroyed() || _mActivity.isFinishing()) {
-            return;
+        try {
+            FragmentTransaction ft = manager.beginTransaction();
+            if (this.isAdded()) {
+                ft.remove(this).commit();
+            }
+            ft.add(this, tag);
+            ft.commitAllowingStateLoss();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        FragmentTransaction ft = manager.beginTransaction();
-        if (this.isAdded()) {
-            ft.remove(this).commit();
-        }
-        ft.add(this, tag);
-        ft.commitAllowingStateLoss();
     }
 }
